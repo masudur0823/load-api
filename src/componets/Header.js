@@ -19,17 +19,23 @@ function Header() {
                                     }
                                 >Home</NavLink>
                                 <NavLink
-                                    to="/news"
+                                    to="/users"
                                     className={(navInfo) =>
                                         navInfo.isActive ? "fw-bold text-decoration-none ms-3 text-danger" : "fw-bold text-decoration-none ms-3"
                                     }
-                                >News</NavLink>
+                                >User</NavLink>
                                 <NavLink
                                     to="/meal"
                                     className={(navInfo) =>
                                         navInfo.isActive ? "fw-bold text-decoration-none ms-3 text-danger" : "fw-bold text-decoration-none ms-3"
                                     }
                                 >Meals</NavLink>
+                                <NavLink
+                                    to="/news"
+                                    className={(navInfo) =>
+                                        navInfo.isActive ? "fw-bold text-decoration-none ms-3 text-danger" : "fw-bold text-decoration-none ms-3"
+                                    }
+                                >News</NavLink>
                             </Nav>
                         </Navbar.Collapse>
                     </Container>

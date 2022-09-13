@@ -7,10 +7,10 @@ import { useNavigate } from 'react-router-dom';
 
 function UserCard(props) {
     const { id, name, username } = props.info;
-    const navigate = useNavigate;
+    const navigate = useNavigate();
 
     const showUserDetails = () => {
-        const path = `/news/${id}`;
+        const path = `/users/${id}`;
         navigate(path);
     }
     return (

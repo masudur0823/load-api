@@ -1,18 +1,20 @@
-import React from 'react'
-import { Row } from 'react-bootstrap'
-import HomeCard from '../componets/HomeCard'
-import Layout from '../componets/Layout'
+import React from "react";
+import { Container, Row } from "react-bootstrap";
+import HomeCard from "../componets/HomeCard";
 
 function Home() {
   return (
-    <Layout>
-      <div className='d-flex align-items-center justify-content-center' style={{ height: '90vh' }}>
-        <Row className='g-4 m-0'>
+    <div
+      className="d-flex align-items-center justify-content-center"
+      style={{ height: "90vh" }}
+    >
+      <Container>
+        <Row className="g-4 m-0">
           <HomeCard />
         </Row>
-      </div>
-    </Layout>
-  )
+      </Container>
+    </div>
+  );
 }
 
-export default Home
+export default Home;
