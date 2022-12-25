@@ -6,28 +6,18 @@ import { useQuery } from "react-query";
 import MealCard from "../componets/MealCard";
 
 
-// export const getMealApi = (props) => {
-//   return axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${props.searchText}`)
-// }
 
 
 export default function MealDb() {
   const [searchText, setSearchText] = useState("");
   const [text, setText] = useState("");
 
-  const { data, isLoading, isError, error } = useQuery("meal", () => {
+  const { data, isLoading, isError, error , refetch} = useQuery("meal", () => {
     return axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchText}`)
-  },{
-    refetchInterval:1000,
   });
 
   console.log('searchText',searchText)
   const meals = data?.data?.meals;
-  // useEffect(() => {
-  //   fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchText}`)
-  //     .then((response) => response.json())
-  //     .then((data) => setMeals(data.meals));
-  // }, [searchText]);
 
   useEffect(() => {
     if (meals?.length === undefined) setText("no data found");
@@ -37,6 +27,7 @@ export default function MealDb() {
   const handleChange = (e) => {
     const searchTextValue = e.target.value;
     setSearchText(searchTextValue);
+    refetch()
   };
 
 

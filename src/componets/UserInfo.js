@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { Col } from 'react-bootstrap';
+import { Col, Spinner } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -31,21 +31,32 @@ function UserCard(props) {
 
 
 function UserInfo() {
-    const [user, setUser] = useState(null)
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            const res = await axios.get('https://jsonplaceholder.typicode.com/users');
-            setUser(res?.data);
-        }
-        fetchUser();
-    }, [])
+    const { data, isLoading, isError, error} = useQuery("user", () => {
+        return axios.get(`https://jsonplaceholder.typicode.com/users`)
+      });
+
+      const users = data?.data;
+
+      if (isLoading) {
+        <div
+        className="d-flex align-items-center justify-content-center"
+        style={{ height: "100vh" }}
+      >
+        <Spinner animation="grow" variant="success" />
+      </div>
+      }
+
+      if (isError) {
+        return <h1>{error.message}</h1>;
+      }
+
 
     return (
         <>
-        <h1 className='text-center'>total user : {user?.length}</h1>
+        <h1 className='text-center'>total user : {users?.length}</h1>
             {
-                user?.map((info) => <UserCard info={info} key={info.id}></UserCard>)
+                users?.map((info) => <UserCard info={info} key={info.id}></UserCard>)
             }
         </>
     )

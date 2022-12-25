@@ -19,10 +19,10 @@ function MealDbDetailsInfo(props) {
 
   useEffect(() => {
     for (let i = 1; i <= 20; i++) {
-    //   console.log("strIngredient" + i);
       return setItem(i);
     }
   }, []);
+
 
   return (
     <>
