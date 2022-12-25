@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "../componets/Header";
 import Home from "./Home";
@@ -8,11 +8,15 @@ import NotFound from "./NotFound";
 import UserInfoDetails from "./UserInfoDetails";
 import News from "./News";
 import MealDbDetails from "./MealDbDetails";
+import { QueryClientProvider, QueryClient } from "react-query";
+import Quote from "./Quote";
 
 function Router() {
+  const client = new QueryClient();
   return (
     <BrowserRouter>
       <Header />
+      <QueryClientProvider client={client}>
       <Routes>
         <Route path="/" element={<Home />} />
 
@@ -22,10 +26,11 @@ function Router() {
         <Route path="/meal" element={<MealDb />} />
         <Route path="/meal/:mealId" element={<MealDbDetails />} />
 
-        <Route path="/news" element={<News />} />
+        <Route path="/quotes" element={<Quote />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
+      </QueryClientProvider>
     </BrowserRouter>
   );
 }

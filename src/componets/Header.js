@@ -31,11 +31,11 @@ function Header() {
                                     }
                                 >Meals</NavLink>
                                 <NavLink
-                                    to="/news"
+                                    to="/quotes"
                                     className={(navInfo) =>
                                         navInfo.isActive ? "fw-bold text-decoration-none ms-3 text-danger" : "fw-bold text-decoration-none ms-3"
                                     }
-                                >News</NavLink>
+                                >Quotes</NavLink>
                             </Nav>
                         </Navbar.Collapse>
                     </Container>

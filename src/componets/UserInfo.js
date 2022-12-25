@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { Col } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -28,13 +30,22 @@ function UserCard(props) {
 }
 
 
-function UserInfo(props) {
-    const user = props.user;
+function UserInfo() {
+    const [user, setUser] = useState(null)
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const res = await axios.get('https://jsonplaceholder.typicode.com/users');
+            setUser(res?.data);
+        }
+        fetchUser();
+    }, [])
 
     return (
         <>
+        <h1 className='text-center'>total user : {user?.length}</h1>
             {
-                user.map((info) => <UserCard info={info} key={info.id}></UserCard>)
+                user?.map((info) => <UserCard info={info} key={info.id}></UserCard>)
             }
         </>
     )
