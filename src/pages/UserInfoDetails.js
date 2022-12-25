@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Card, Container, Spinner } from "react-bootstrap";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";

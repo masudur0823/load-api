@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "../componets/Header";
 import Home from "./Home";
@@ -6,7 +6,6 @@ import MealDb from "./MealDb";
 import User from "./User";
 import NotFound from "./NotFound";
 import UserInfoDetails from "./UserInfoDetails";
-import News from "./News";
 import MealDbDetails from "./MealDbDetails";
 import { QueryClientProvider, QueryClient } from "react-query";
 import Quote from "./Quote";
