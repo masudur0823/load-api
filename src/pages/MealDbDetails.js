@@ -5,8 +5,6 @@ import { useParams } from "react-router-dom";
 function MealDbDetailsInfo(props) {
   const mealinfo = props.mealinfo;
   const { idMeal, strMeal, strMealThumb } = mealinfo;
-  const [item, setItem] = useState("");
-  console.log(item)
 
   const styled = {
     width: "100%",
@@ -17,12 +15,19 @@ function MealDbDetailsInfo(props) {
     marginTop: "20px",
   };
 
-  useEffect(() => {
-    for (let i = 1; i <= 20; i++) {
-      return setItem(i);
-    }
-  }, []);
+  const strIngredients = Object.entries(mealinfo)
+    .filter(([key, value]) => key.includes("strIngredient") && value !== "")
+    .map(([key, value]) => ({ [key]: value }));
 
+  const strMeasures = Object.entries(mealinfo)
+    .filter(([key, value]) => key.includes("strMeasure") && value !== " ")
+    .map(([key, value]) => ({ [key]: value }));
+
+  let mergedArray = [];
+
+  for (let i = 0; i < strIngredients.length; i++) {
+    mergedArray.push({ ...strIngredients[i], ...strMeasures[i] });
+  }
 
   return (
     <>
@@ -33,29 +38,17 @@ function MealDbDetailsInfo(props) {
       <p>
         <b>{strMeal}</b>
       </p>
-      <h2>Ingredients:</h2>
-      <ol>
-           {mealinfo.strIngredient1 === ("" && null) ? '' : <li>{mealinfo.strIngredient1}</li>}
-           {mealinfo.strIngredient2 === ("" && null) ? '' : <li>{mealinfo.strIngredient2}</li>}
-           {mealinfo.strIngredient3 === ("" && null) ? '' : <li>{mealinfo.strIngredient3}</li>}
-           {mealinfo.strIngredient4 === ("" && null) ? '' : <li>{mealinfo.strIngredient4}</li>}
-           {mealinfo.strIngredient5 === ("" && null) ? '' : <li>{mealinfo.strIngredient5}</li>}
-           {mealinfo.strIngredient6 === ("" && null) ? '' : <li>{mealinfo.strIngredient6}</li>}
-           {mealinfo.strIngredient7 === ("" && null) ? '' : <li>{mealinfo.strIngredient7}</li>}
-           {mealinfo.strIngredient8 === ("" && null) ? '' : <li>{mealinfo.strIngredient8}</li>}
-           {mealinfo.strIngredient9 === ("" && null) ? '' : <li>{mealinfo.strIngredient9}</li>}
-           {mealinfo.strIngredient10 === ("" && null) ? '' : <li>{mealinfo.strIngredient10}</li>}
-           {mealinfo.strIngredient11 === ("" && null) ? '' : <li>{mealinfo.strIngredient11}</li>}
-           {mealinfo.strIngredient12 === ("" && null) ? '' : <li>{mealinfo.strIngredient12}</li>}
-           {mealinfo.strIngredient13 === ("" && null) ? '' : <li>{mealinfo.strIngredient13}</li>}
-           {mealinfo.strIngredient14 === ("" && null) ? '' : <li>{mealinfo.strIngredient14}</li>}
-           {mealinfo.strIngredient15 === ("" && null) ? '' : <li>{mealinfo.strIngredient15}</li>}
-           {mealinfo.strIngredient16 === ("" && null) ? '' : <li>{mealinfo.strIngredient16}</li>}
-           {mealinfo.strIngredient17 === ("" && null) ? '' : <li>{mealinfo.strIngredient17}</li>}
-           {mealinfo.strIngredient18 === ("" && null) ? '' : <li>{mealinfo.strIngredient18}</li>}
-           {mealinfo.strIngredient19 === ("" && null) ? '' : <li>{mealinfo.strIngredient19}</li>}
-           {mealinfo.strIngredient20 === ("" && null) ? '' : <li>{mealinfo.strIngredient20}</li>}
-      </ol>
+
+      <div className="d-flex">
+        <div>
+          <h2>Ingredients:</h2>
+          <ol>
+            {mergedArray?.map((item, i) => (
+              <li key={i}>{item[`strIngredient${i + 1}`]} - {item[`strMeasure${i + 1}`]}</li>
+            ))}
+          </ol>
+        </div>
+      </div>
     </>
   );
 }
@@ -65,7 +58,7 @@ function MealDbDetails() {
   const [mealInfo, setMealInfo] = useState([]);
 
   useEffect(() => {
-    const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${param.mealId}`;
+    const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${param?.mealId}`;
     fetch(url)
       .then((response) => response.json())
       .then((data) => setMealInfo(data.meals));
