@@ -6,7 +6,7 @@ function Home() {
   return (
     <div
       className="d-flex align-items-center justify-content-center"
-      style={{ height: "90vh" }}
+      style={{ minHeight: 'calc(100vh - 79px)' }}
     >
       <Container>
         <Row className="g-4 m-0">

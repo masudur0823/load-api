@@ -9,6 +9,7 @@ import UserInfoDetails from "./UserInfoDetails";
 import MealDbDetails from "./MealDbDetails";
 import { QueryClientProvider, QueryClient } from "react-query";
 import Quote from "./Quote";
+import Practice from "./Practice";
 
 function Router() {
   const client = new QueryClient();
@@ -26,6 +27,8 @@ function Router() {
         <Route path="/meal/:mealId" element={<MealDbDetails />} />
 
         <Route path="/quotes" element={<Quote />} />
+
+        <Route path="/practice" element={<Practice />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
